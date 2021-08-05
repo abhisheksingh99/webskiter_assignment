@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.webskitters.assignment.data.WSData" />
+
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="10dp"
+        app:cardCornerRadius="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/subparent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:padding="7dp"
+                    android:background="@drawable/bg_circle"
+                    android:uriSet="@{viewmodel.image}"
+                    android:id="@+id/imageView"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                     />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center_vertical"
+                    android:text="@{viewmodel.name}"
+                    android:textColor="@color/purple_700"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+                <TextView
+                    android:paddingTop="3dp"
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:text="@{viewmodel.email}"
+                    android:textColor="@color/purple_700"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView3"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <TextView
+                    android:drawablePadding="10dp"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:text="@{viewmodel.phone_no}"
+                    android:textColor="@color/teal_700"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView"
+                    app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato"
+                    android:gravity="center_vertical"
+                    android:text="@{viewmodel.address}"
+                    android:textColor="@color/teal_200"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
