@@ -28,25 +28,17 @@ class MapsFragment : Fragment() {
     private var marker: Marker? = null
     private lateinit var markerOptions: MarkerOptions
     private lateinit var mMap: GoogleMap
+    private var latitude=0.0
+    private var longitude=0.0
 
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
 
         mMap=googleMap
-        val sydney = LatLng(0.0, 0.0)
+        val sydney = LatLng(latitude, longitude)
         markerOptions = MarkerOptions().position(sydney)
         marker = mMap.addMarker(markerOptions)
         marker?.setPosition(sydney)
-//        startStop()
-//        initTracker()
+
          }
 
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -66,6 +58,9 @@ class MapsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+
     }
 
     var tracker: LocationTracker = LocationTracker(
@@ -77,21 +72,11 @@ class MapsFragment : Fragment() {
     ).also {
         it.addListener(object : LocationTracker.Listener {
             override fun onLocationFound(location: Location) {
-//                tv_lat.text = location.latitude.toString()
-//                tv_long.text = location.longitude.toString()
-                val sydney = LatLng(location.latitude, location.longitude)
-//                markerOptions = MarkerOptions().position(sydney)
-//                marker = mMap.addMarker(markerOptions)
-//                marker?.setPosition(sydney)
 
-
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-
-
-
+                latitude=location.latitude
+                longitude=location.longitude
+                val sydney = LatLng(latitude, longitude)
                 marker?.setPosition(sydney);
-
                 val location = CameraUpdateFactory.newLatLngZoom(
                     sydney, 15f
                 )
@@ -122,22 +107,15 @@ class MapsFragment : Fragment() {
         else{
             OnTrack()
         }
-//        startStopBtn.setOnClickListener {
-//        OnTrack()
-//        }
     }
 
-
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         initTracker()
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         tracker.stopListening(clearListeners = true)
     }
 
